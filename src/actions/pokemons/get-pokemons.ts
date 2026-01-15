@@ -1,6 +1,7 @@
 import { pokeApi } from "../../config/api/pokeApi";
 import type { Pokemon } from "../../domain/entities/pokemon";
 import type { PokeAPIPaginatedResponse, PokeAPIPokemon } from "../../infrastructure/interfaces/pokeapi.interfaces";
+import { PokemonMapper } from "../../infrastructure/mappers/pokemon.mapper";
 
 export const getPokemons = async (page: number, limit: number = 20):Promise<Pokemon[]> => {
 
@@ -16,10 +17,9 @@ export const getPokemons = async (page: number, limit: number = 20):Promise<Poke
 
         const pokeApiPokemons = await Promise.all(pokemonPromises);
 
-        console.log(pokeApiPokemons);
-
-        console.log(data);
-        return [];
+        const pokemons = pokeApiPokemons.map((item) => PokemonMapper.PokeApiPokemonToEntity(item.data));
+        console.log(pokemons[0])
+        return pokemons
 
     } catch (error) {
         throw new Error('Error getting pokemons :(');
