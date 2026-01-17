@@ -45,7 +45,7 @@ export const HomeScreen = () => {
                 numColumns={2}
                 style={{paddingTop: top + 20}}
                 ListHeaderComponent={() => (
-                    <Text variant='displayMedium'>Pokedex</Text>
+                    <Text variant='displayMedium' style={{marginBottom: 15}}>Pokedex</Text>
                 )}
                 renderItem={({item}) => <PokemonCard pokemon={item} />}
                 showsVerticalScrollIndicator={false}

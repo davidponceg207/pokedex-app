@@ -48,7 +48,7 @@ import {
   export const ThemeContextProvider = ({children}: PropsWithChildren) => {
     const colorScheme = useColorScheme();
     const isDarkTheme = colorScheme === 'dark';
-    const theme = isDarkTheme ? CombinedDarkTheme : CombinedDefaultTheme;
+    const theme = isDarkTheme ? CombinedDarkTheme : CombinedDarkTheme;
    
     return (
       <PaperProvider theme={theme}>

@@ -11,12 +11,12 @@ export class PokemonMapper {
         const avatar = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
         const avatarShiny = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${data.id}.png`
 
-        const color = await getColorFromImage(avatarShiny);
+        const color = await getColorFromImage(avatar);
 
         return {
             id: data.id,
             name: data.name,
-            avatar: avatarShiny,
+            avatar: avatar,
             types: data.types.map( type => type.type.name ),
             sprites: sprites,
             color: color,
