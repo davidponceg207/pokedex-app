@@ -9,16 +9,23 @@ export class PokemonMapper {
 
         const sprites = PokemonMapper.getSprites(data);
         const avatar = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
+        const avatarShiny = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${data.id}.png`
 
-        const color = await getColorFromImage(avatar);
+        const color = await getColorFromImage(avatarShiny);
 
         return {
             id: data.id,
             name: data.name,
-            avatar: avatar,
+            avatar: avatarShiny,
             types: data.types.map( type => type.type.name ),
             sprites: sprites,
-            color: color
+            color: color,
+            games: data.game_indices.map(game => game.version.name),
+            stats: data.stats.map(stat => ({name: stat.stat.name, value: stat.base_stat})),
+            abilities: data.abilities.map(ability => ability.ability ? ability.ability.name : ''),
+            moves: data.moves
+              .map(move => ({name: move.move.name, level: move.version_group_details[0].level_learned_at}))
+              .sort((a, b) => a.level - b.level)
         }
     }
 
