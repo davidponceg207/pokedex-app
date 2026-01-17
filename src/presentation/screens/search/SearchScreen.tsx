@@ -4,10 +4,18 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ActivityIndicator, Text, TextInput } from 'react-native-paper';
 import { Pokemon } from '../../../domain/entities/pokemon';
 import { PokemonCard } from '../../components/pokemons/PokemonCard';
+import { useQuery } from '@tanstack/react-query';
+import { getPokemonNamesWithId } from '../../../actions/pokemons';
 
 export const SearchScreen = () => {
 
     const { top } = useSafeAreaInsets();
+
+    const { isLoading, data: pokemonNamelist = [] } = useQuery({
+        queryKey: ['pokemons', 'all'],
+        queryFn: () => getPokemonNamesWithId()
+    });
+
 
     return (
         <View style={[ globalTheme.globalMargin, { paddingTop: top + 10 } ]}>
