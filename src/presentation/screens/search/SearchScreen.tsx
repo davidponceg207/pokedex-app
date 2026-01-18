@@ -18,7 +18,22 @@ export const SearchScreen = () => {
         queryFn: () => getPokemonNamesWithId()
     });
 
-    const pokemonNameIdList = useMemo(() => {},[])
+    const pokemonNameIdList = useMemo(() => {
+
+        if(!isNaN(Number(term))) {
+            const pokemon = pokemonNamelist.find(pokemon => pokemon.id === Number(term));
+            return pokemon ? [pokemon] : [];
+        }
+
+        if(term.length === 0) return [];
+
+        if(term.length < 3) return [];
+
+        return pokemonNamelist.filter(pokemon => {
+            pokemon.name.includes(term.toLocaleLowerCase());
+        })
+
+    },[term])
 
 
     return (
