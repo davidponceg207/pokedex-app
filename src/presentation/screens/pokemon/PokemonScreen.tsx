@@ -35,6 +35,8 @@ export const PokemonScreen = ({ navigation, route }: Props) => {
         )
     }
 
+    console.log(pokemon)
+
     return (
         <ScrollView
             style={{ flex: 1, backgroundColor: pokemon.color }}
@@ -75,7 +77,7 @@ export const PokemonScreen = ({ navigation, route }: Props) => {
             <FlatList
                 data={pokemon.sprites}
                 horizontal
-                keyExtractor={item => item}
+                keyExtractor={(item, i) => `${item}-${i}`}
                 showsHorizontalScrollIndicator={false}
                 centerContent
                 style={{
