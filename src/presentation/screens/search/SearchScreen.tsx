@@ -6,15 +6,19 @@ import { Pokemon } from '../../../domain/entities/pokemon';
 import { PokemonCard } from '../../components/pokemons/PokemonCard';
 import { useQuery } from '@tanstack/react-query';
 import { getPokemonNamesWithId } from '../../../actions/pokemons';
+import { useMemo, useState } from 'react';
 
 export const SearchScreen = () => {
 
     const { top } = useSafeAreaInsets();
+    const [term, setTerm] = useState('')
 
     const { isLoading, data: pokemonNamelist = [] } = useQuery({
         queryKey: ['pokemons', 'all'],
         queryFn: () => getPokemonNamesWithId()
     });
+
+    const pokemonNameIdList = useMemo(() => {},[])
 
 
     return (
@@ -24,8 +28,8 @@ export const SearchScreen = () => {
                 mode='flat'
                 autoFocus
                 autoCorrect={false}
-                onChangeText={value => console.log(value)}
-                value={'Hello world'}
+                onChangeText={setTerm}
+                value={term}
             />
 
             <ActivityIndicator style={{ paddingTop: 25 }} />
