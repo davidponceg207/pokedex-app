@@ -15,7 +15,7 @@ interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'> { }
 
 export const PokemonScreen = ({ navigation, route }: Props) => {
 
-    const { isDark } = useContext(ThemeContext);
+    const { isDark, isShiny } = useContext(ThemeContext);
     const { top } = useSafeAreaInsets();
     const { pokemonId } = route.params;
 
@@ -56,7 +56,7 @@ export const PokemonScreen = ({ navigation, route }: Props) => {
                 {/* Pokeball */}
                 <Image source={pokeballImg} style={styles.pokeball} />
 
-                <FadeInImage uri={pokemon.avatar} style={styles.pokemonImage} />
+                <FadeInImage uri={isShiny ? pokemon.avatarShiny : pokemon.avatar} style={styles.pokemonImage} />
             </View>
 
             {/* Types */}

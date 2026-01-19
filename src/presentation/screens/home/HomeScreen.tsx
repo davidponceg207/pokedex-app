@@ -8,6 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PokemonCard } from '../../components/pokemons/PokemonCard';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../../navigator/StackNavigator';
+import { AvatarSwitch } from '../../components/ui/AvatarSwitch';
 
 interface Props extends StackScreenProps<RootStackParams, 'HomeScreen'> {};
 
@@ -64,6 +65,8 @@ export const HomeScreen = ({navigation}: Props) => {
                 onPress={() => navigation.push('SearchScreen')}
 
             />
+
+            <AvatarSwitch />
         </View>
     )
 }

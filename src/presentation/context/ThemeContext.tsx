@@ -11,7 +11,7 @@ import {
   } from 'react-native-paper';
   import merge from 'deepmerge';
   import {useColorScheme} from 'react-native';
-  import {createContext, PropsWithChildren} from 'react';
+  import {createContext, PropsWithChildren, useState} from 'react';
    
   const {LightTheme, DarkTheme} = adaptNavigationTheme({
     reactNavigationLight: NavigationDefaultTheme,
@@ -39,21 +39,32 @@ import {
       heavy: {fontFamily: 'Nunito-Heavy', fontWeight: '900' as '900'},
     },
   };
-   
+
+  
   export const ThemeContext = createContext({
     isDark: false,
     theme: DarkTheme,
+    isShiny: false,
+    changeAvatarToShiny: ((value: boolean) => {})
   });
-   
+  
   export const ThemeContextProvider = ({children}: PropsWithChildren) => {
+    
     const colorScheme = useColorScheme();
     const isDarkTheme = colorScheme === 'dark';
     const theme = isDarkTheme ? CombinedDarkTheme : CombinedDarkTheme;
-   
+    const [isShiny, setIsShiny] = useState(false);
+  
+
+    // ToDo: Important, performance issues with change avatar context
+    const changeAvatarToShiny = (value:boolean) => {
+      setIsShiny(value);
+    }
+    
     return (
       <PaperProvider theme={theme}>
         <NavigationContainer theme={theme}>
-          <ThemeContext.Provider value={{isDark: isDarkTheme, theme: theme}}>
+          <ThemeContext.Provider value={{isDark: isDarkTheme, theme: theme, isShiny: isShiny, changeAvatarToShiny}}>
             {children}
           </ThemeContext.Provider>
         </NavigationContainer>

@@ -1,10 +1,12 @@
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Pokemon } from '../../../domain/entities/pokemon';
-import { Card, Text } from 'react-native-paper';
+import { Card, Text, useTheme } from 'react-native-paper';
 import { FadeInImage } from '../ui/FadeInImage';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../../navigator/StackNavigator';
 import { Formatter } from '../../../config/helpers/formatter';
+import { ThemeContext } from '../../context/ThemeContext';
+import { useContext } from 'react';
 
 interface Props {
     pokemon: Pokemon
@@ -13,6 +15,7 @@ interface Props {
 export const PokemonCard = ({ pokemon }: Props) => {
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
+    const { isShiny } = useContext(ThemeContext);
 
     return (
         <Pressable onPress={() => navigation.navigate('PokemonScreen', {pokemonId: pokemon.id})} style={{flex: 1}}>
@@ -31,7 +34,7 @@ export const PokemonCard = ({ pokemon }: Props) => {
                 </View>
 
                 <FadeInImage
-                    uri={pokemon.avatar}
+                    uri={ isShiny ? pokemon.avatarShiny : pokemon.avatar}
                     style={styles.pokemonImage}
                 />
                 

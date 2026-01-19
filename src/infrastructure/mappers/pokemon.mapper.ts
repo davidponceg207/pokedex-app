@@ -17,7 +17,8 @@ export class PokemonMapper {
         return {
             id: data.id,
             name: data.name,
-            avatar: avatarAnimated,
+            avatar: avatar,
+            avatarShiny: avatarShiny,
             types: data.types.map( type => type.type.name ),
             sprites: sprites,
             color: color,
